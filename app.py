@@ -14,11 +14,28 @@ import os
 # Load environment variables
 load_dotenv()
 
+#adding cors headers
+from fastapi.middleware.cors import CORSMiddleware
+
 # Get environment variables with error handling
 email = os.getenv("EMAIL")
 password = os.getenv("PASS")
 
 app = FastAPI()
+
+#adding cors urls
+origins = [
+    'http://localhost:3000'
+]
+
+#add middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def index():
